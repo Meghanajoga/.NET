@@ -40,30 +40,23 @@ namespace UserRegistrationApp.Controllers
 {
     public class UserController : Controller
     {
-        // In-memory storage for demo purposes
         private static List<User> users = new List<User>();
 
-        // Display registration form
         public IActionResult Register()
         {
             return View();
         }
-        // Handle form submission
         [HttpPost]
         public IActionResult Register(User user)
         {
             if (ModelState.IsValid)
             {
-                // Save user in memory
                 user.Id = users.Count + 1;
                 users.Add(user);
-                // Redirect to display page
                 return RedirectToAction("UserList");
             }
-            // If validation fails, return form
             return View(user);
         }
-        // Display registered users
         public IActionResult UserList()
         {
             return View(users);
@@ -74,7 +67,6 @@ namespace UserRegistrationApp.Controllers
 Program.cs
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())
@@ -86,7 +78,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
-// Default route pointing to User/Register
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=User}/{action=Register}/{id?}");
