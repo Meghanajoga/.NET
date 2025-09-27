@@ -40,14 +40,12 @@ namespace ProductApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        // GET: api/products
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(ProductRepository.Products);
         }
 
-        // GET: api/products/{id}
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -56,7 +54,6 @@ namespace ProductApi.Controllers
             return Ok(product);
         }
 
-        // POST: api/products
         [HttpPost]
         public IActionResult Create(Product product)
         {
@@ -65,7 +62,6 @@ namespace ProductApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
         }
 
-        // PUT: api/products/{id}
         [HttpPut("{id}")]
         public IActionResult Update(int id, Product updatedProduct)
         {
@@ -77,7 +73,6 @@ namespace ProductApi.Controllers
             return NoContent();
         }
 
-        // DELETE: api/products/{id}
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -95,20 +90,16 @@ Program.cs
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
 
-// Configure middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
