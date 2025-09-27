@@ -49,7 +49,7 @@ namespace ProductManagement.Data
 }
 
 "ConnectionStrings": {
-  "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=ProductDB;Trusted_Connection=True;MultipleActiveResultSets=true"
+  "DefaultConnection": "Server=(localdb)
 }
 In Startup.cs (or Program.cs for .NET 6+), register DbContext:
 
@@ -84,8 +84,6 @@ namespace ProductManagement.Controllers
         {
             _context = context;
         }
-
-        // GET: Products
         public async Task<IActionResult> Index()
         {
             var products = await _context.Products.ToListAsync();
@@ -101,14 +99,12 @@ namespace ProductManagement.Controllers
             return View(product);
         }
 
-        // GET: Products/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
- [HttpPost]
+     [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Price")] Product product)
         {
@@ -121,7 +117,6 @@ namespace ProductManagement.Controllers
             return View(product);
         }
 
-        // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -132,7 +127,6 @@ namespace ProductManagement.Controllers
             return View(product);
         }
 
-        // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price")] Product product)
@@ -158,7 +152,6 @@ namespace ProductManagement.Controllers
             return View(product);
         }
 
-        // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -169,7 +162,6 @@ var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             return View(product);
         }
 
-        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
