@@ -38,31 +38,26 @@ namespace UserLoginApp.Controllers
 {
     public class UserController : Controller
     {
-        // In-memory storage for registered users
         private static List<User> users = new List<User>();
-        // Registration GET
         public IActionResult Register()
         {
             return View();
         }
-        // Registration POST
         [HttpPost]
         public IActionResult Register(User user)
         {
             if (ModelState.IsValid)
             {
-                users.Add(user); // store user in memory
+                users.Add(user); 
                 ViewBag.Message = "Registration Successful!";
                 return RedirectToAction("Login");
             }
             return View(user);
         }
-        // Login GET
         public IActionResult Login()
         {
             return View();
         }
-        // Login POST
         [HttpPost]
         public IActionResult Login(User loginUser)
         {
@@ -80,14 +75,11 @@ namespace UserLoginApp.Controllers
 
 Program.cs
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 app.UseHttpsRedirection();
